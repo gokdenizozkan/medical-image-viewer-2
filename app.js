@@ -9,6 +9,8 @@ let dragging = false;
 let dragStart = {x: 0, y: 0};
 let manualPan = {x: 50, y: 50};
 let initialPan = {x: 50, y: 50};
+
+let currentZoomLevel = 100;
  
 const zoomNPan = new ZoomNPan(viewer);
 zoomNPan.minScale = 50;
@@ -41,6 +43,12 @@ function zoom(direction) {
   const deltaY = -direction * WHEEL_STEP;
   const wheelEvent = new WheelEvent('wheel', {deltaY, bubbles: true, canelable: true});
   viewer.dispatchEvent(wheelEvent);
+}
+function resetView() {
+  viewer.style.backgroundSize = '100%';
+  viewer.style.backgroundPosition = '50% 50%';
+  viewer.classList.remove('zoomed-in', 'zoomed-out');
+  currentZoomLevel = 100;
 }
 
 // Getters
@@ -96,6 +104,7 @@ document.querySelectorAll('.miv2-image-control').forEach(control => {
       case 'zoom-in': zoom(1); break;
       case 'zoom-out': zoom(-1); break;
       case 'toggle-mouse-follow': toggleMouseFollow(); break;
+      case 'reset-view': resetView(); break;
     }
   });
 });
