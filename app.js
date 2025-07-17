@@ -89,6 +89,13 @@ function toggleMouseFollow() {
   followMouseControl.classList.toggle('active', autoPan);
 }
 
+// Main Helpers
+function initializeGallery() {
+  const firstThumbnail = getThumbnails()[0];
+  firstThumbnail.classList.add('selected');
+  setDisplayImageSourceByUrl(firstThumbnail.querySelector('img').src);
+}
+
 // Main
 gallery.addEventListener('click', e => {
   const thumbnail = e.target.closest('.miv2-thumbnail');
@@ -108,3 +115,5 @@ document.querySelectorAll('.miv2-image-control').forEach(control => {
     }
   });
 });
+
+initializeGallery();
