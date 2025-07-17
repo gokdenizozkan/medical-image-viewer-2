@@ -1,12 +1,13 @@
 // Declarations
 const viewer = document.querySelector('.miv2-image-display');
 const gallery = document.querySelector('.miv2-image-gallery');
+const WHEEL_STEP = 120;
  
 const zoomNPan = new ZoomNPan(viewer);
 zoomNPan.minScale = 50;
 
  
-// Helper
+// Logic
 function displayByImageElement(imageElement) {
   const thumbnailElement = imageElement.closest('.miv2-thumbnail');
   getThumbnails().forEach(thumbnail => thumbnail.classList.remove('selected'));
@@ -25,12 +26,15 @@ function displayByOffset(offset) {
   setDisplayImageSourceByUrl(selected.querySelector('img').src);
 }
 
-function setDisplayImageSourceByUrl(url) {
-    viewer.style.backgroundImage = `url(${url})`;
-}
-
+// Helpers
+function setDisplayImageSourceByUrl(url) { viewer.style.backgroundImage = `url(${url})`; }
 function displayPreviousImage() { displayByOffset(-1); }
 function displayNextImage() { displayByOffset(1); }
+function zoom(direction) {
+  const deltaY = -direction * WHEEL_STEP;
+  const wheelEvent = new WheelEvent('wheel', {deltaY, bubbles: true, canelable: true});
+  viewer.dispatchEvent(wheelEvent);
+}
 
 // Getters
 function getThumbnails() {
@@ -49,6 +53,8 @@ document.querySelectorAll('.miv2-image-control').forEach(control => {
     switch (control.dataset.action) {
       case 'previous': displayPreviousImage(); break;
       case 'next': displayNextImage(); break;
+      case 'zoom-in': zoom(1); break;
+      case 'zoom-out': zoom(-1); break;
     }
   });
 });
