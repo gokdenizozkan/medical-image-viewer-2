@@ -29,7 +29,25 @@ body {
 
 .miv2-thumbnail-container {
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.miv2-thumbnail {
   
+}
+.miv2-thumbnail:hover {
+  background-color: #FF0000;
+}
+.miv2-thumbnail.selected {
+  background-color: darkred;
+  border-left: 3px solid red;
+}
+.miv2-thumbnail img {
+  width: 80px;
+  height: 80px;
+  cursor: pointer;
+  object-fit: cover;
 }
 
 .miv2-image-display {
