@@ -1,7 +1,14 @@
 // Declarations
 const viewer = document.querySelector('.miv2-image-display');
 const gallery = document.querySelector('.miv2-image-gallery');
+const followMouseControl = document.querySelector('[data-action="toggle-mouse-follow"]');
+
 const WHEEL_STEP = 120;
+let autoPan = false;
+let dragging = false;
+let dragStart = {x: 0, y: 0};
+let manualPan = {x: 50, y: 50};
+let initialPan = {x: 50, y: 50};
  
 const zoomNPan = new ZoomNPan(viewer);
 zoomNPan.minScale = 50;
@@ -41,6 +48,39 @@ function getThumbnails() {
   return Array.from(document.querySelectorAll('.miv2-thumbnail'));
 }
 
+// Mouse & drag handlers
+viewer.addEventListener('mousedown', e => {
+  if (!viewer.classList.contains('zoomed-in')) return;
+  dragging = true;
+  dragStart = { x: e.clientX, y: e.clientY };
+  initialPan = { ...manualPan };
+  e.preventDefault();
+});
+
+document.addEventListener('mouseup', e => dragging = false);
+
+viewer.addEventListener('mousemove', e => {
+  if (autoPan) return;
+  if (dragging) {
+    const dx = e.clientX - dragStart.x;
+    const dy = e.clientY - dragStart.y;
+    manualPan.x = initialPan.x - (dx / viewer.clientWidth) * 100;
+    manualPan.y = initialPan.y - (dy / viewer.clientHeight) * 100;
+  }
+  viewer.style.backgroundPosition = `${manualPan.x}% ${manualPan.y}%`;
+});
+
+function toggleMouseFollow() {
+  autoPan = !autoPan;
+  dragging = false;
+  if (autoPan) {
+    manualPan = { x: 50, y: 50 };
+    viewer.style.backgroundPosition = '50% 50%';
+  }
+  followMouseControl.innerText = autoPan ? "Following" : "Follow Mouse";
+  followMouseControl.classList.toggle('active', autoPan);
+}
+
 // Main
 gallery.addEventListener('click', e => {
   const thumbnail = e.target.closest('.miv2-thumbnail');
@@ -55,6 +95,7 @@ document.querySelectorAll('.miv2-image-control').forEach(control => {
       case 'next': displayNextImage(); break;
       case 'zoom-in': zoom(1); break;
       case 'zoom-out': zoom(-1); break;
+      case 'toggle-mouse-follow': toggleMouseFollow(); break;
     }
   });
 });

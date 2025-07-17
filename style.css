@@ -1,3 +1,8 @@
+:root {
+  --color-accent-primary: #0063B3;  
+  
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -63,4 +68,11 @@ body {
   grid-area: controls;
   border: 1px solid green;
   display: flex;
+}
+
+.miv2-image-control.active {
+  background-color: var(--color-accent-primary);
+  border-color: var(--color-accent-primary);
+  color: white;
+  font-weight: 400;
 }
