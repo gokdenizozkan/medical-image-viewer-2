@@ -7,12 +7,30 @@ zoomNPan.minScale = 50;
 
  
 // Helper
-function selectImageByImageElement(imageElement) {
+function displayByImageElement(imageElement) {
   const thumbnailElement = imageElement.closest('.miv2-thumbnail');
   getThumbnails().forEach(thumbnail => thumbnail.classList.remove('selected'));
   thumbnailElement.classList.add('selected');
-  viewer.style.backgroundImage = `url(${imageElement.src})`;
+  setDisplayImageSourceByUrl(imageElement.src);
 }
+
+function displayByOffset(offset) {
+  const thumbnails = getThumbnails();
+  const currentIndex = thumbnails.findIndex(thumbnail => thumbnail.classList.contains('selected'));
+  const nextIndex = (currentIndex + offset + thumbnails.length) % thumbnails.length;
+  
+  thumbnails.forEach(thumbnail => thumbnail.classList.remove('selected'));
+  const selected = thumbnails[nextIndex];
+  selected.classList.add('selected');
+  setDisplayImageSourceByUrl(selected.querySelector('img').src);
+}
+
+function setDisplayImageSourceByUrl(url) {
+    viewer.style.backgroundImage = `url(${url})`;
+}
+
+function displayPreviousImage() { displayByOffset(-1); }
+function displayNextImage() { displayByOffset(1); }
 
 // Getters
 function getThumbnails() {
@@ -23,5 +41,14 @@ function getThumbnails() {
 gallery.addEventListener('click', e => {
   const thumbnail = e.target.closest('.miv2-thumbnail');
   if (!thumbnail) return;
-  selectImageByImageElement(thumbnail.querySelector('img'));
+  displayByImageElement(thumbnail.querySelector('img'));
+});
+
+document.querySelectorAll('.miv2-image-control').forEach(control => {
+  control.addEventListener('click', () => {
+    switch (control.dataset.action) {
+      case 'previous': displayPreviousImage(); break;
+      case 'next': displayNextImage(); break;
+    }
+  });
 });
