@@ -32,12 +32,13 @@ body {
   
 }
 
-.miv2-displayed-image {
+.miv2-image-display {
   grid-area: image;
   border: 1px solid black;
   width: 100%;
   height: 480px;
   background-image: url("http://picsum.photos/1280/720");
+  background-repeat: no-repeat;
 }
 
 .miv2-image-controls {
