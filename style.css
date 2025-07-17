@@ -1,0 +1,47 @@
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.miv2-image-viewer {
+  display: grid;
+  grid-template:
+    "header header"
+    "gallery image"
+    "gallery controls";
+  grid-template-columns: 250px 1fr;
+  grid-template-rows: 100px 1fr 100px;
+  width: 100%;
+  height: 100vh;
+}
+
+.miv2-viewer-header {
+  grid-area: header;
+  border: 1px solid red;
+}
+
+.miv2-image-gallery {
+  grid-area: gallery;
+  border: 1px solid blue;
+}
+
+.miv2-thumbnail-container {
+  overflow-y: auto;
+  
+}
+
+.miv2-displayed-image {
+  grid-area: image;
+  border: 1px solid black;
+  width: 100%;
+  height: 480px;
+  background-image: url("http://picsum.photos/1280/720");
+}
+
+.miv2-image-controls {
+  grid-area: controls;
+  border: 1px solid green;
+  display: flex;
+}

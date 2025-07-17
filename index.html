@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Medical Image Viewer 2</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<div class="miv2-image-viewer">
+  <header>
+    <h1>Medical Image Viewer 2</h1>
+  </header>
+  
+  <!-- Gallery -->
+  <aside class="miv2-image-gallery">
+    <div class="miv2-gallery-header">Images</div>
+    
+    <div class="miv2-thumbnail-container">
+      <div class="miv2-thumbnail">
+        <img src="http://picsum.photos/1280/720" alt="">
+      </div>
+    </div>
+  </aside>
+  
+  <!-- Image -->
+  <main class="miv2-displayed-image"></main>
+  
+  <!-- Controls -->
+  <div class="miv2-image-controls">
+    <button type="button" class="miv2-image-control">Prev</button>
+    <button type="button" class="miv2-image-control">Next</button>
+    <button type="button" class="miv2-image-control">Zoom In</button>
+    <button type="button" class="miv2-image-control">Zoom Out</button>
+  </div>
+</div>
+
+<script src="zoomnpan.js"</script>
+<script src="app.js"</script>
+</body>
+</html>
