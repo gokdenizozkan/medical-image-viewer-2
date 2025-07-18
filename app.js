@@ -36,7 +36,25 @@ function displayByOffset(offset) {
 }
 
 // Helpers
-function setDisplayImageSourceByUrl(url) { viewer.style.backgroundImage = `url(${url})`; }
+function setDisplayImageSourceByUrl(url) {
+  const tempImage = new Image();
+  viewer.classList.add('loading');
+
+  tempImage.onload = function() {
+    viewer.style.backgroundImage = `url(${url})`;
+    viewer.classList.remove('loading');
+    viewer.classList.remove('error');
+  };
+
+  tempImage.onerror = function() {
+    console.error('Failed to load image:', url);
+    viewer.classList.add('error');
+    viewer.classList.remove('loading');
+  };
+
+  tempImage.src = url;
+}
+
 function displayPreviousImage() { displayByOffset(-1); }
 function displayNextImage() { displayByOffset(1); }
 function zoom(direction) {
