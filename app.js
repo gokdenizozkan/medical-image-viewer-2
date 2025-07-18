@@ -2,13 +2,16 @@
 const viewer = document.querySelector('.miv2-image-display');
 const gallery = document.querySelector('.miv2-image-gallery');
 const followMouseControl = document.querySelector('[data-action="toggle-mouse-follow"]');
+const zoomIndicator = document.getElementById('zoomIndicator');
 
 const WHEEL_STEP = 120;
+const ZOOM_INDICATOR_TIMEOUT = 1500; // ms
 let autoPan = false;
 let dragging = false;
 let dragStart = {x: 0, y: 0};
 let manualPan = {x: 50, y: 50};
 let initialPan = {x: 50, y: 50};
+let zoomIndicatorTimeoutId = null;
 
 let currentZoomLevel = 100;
  
@@ -67,6 +70,21 @@ function resetView() {
   manualPan = { x: 50, y: 50 };
   currentZoomLevel = 100;
   dragging = false;
+  updateZoomIndicator(100);
+}
+
+// Zoom indicator functions
+function updateZoomIndicator(zoomLevel) {
+  zoomIndicator.textContent = `${Math.round(zoomLevel)}%`;
+  zoomIndicator.classList.add('visible');
+
+  if (zoomIndicatorTimeoutId) {
+    clearTimeout(zoomIndicatorTimeoutId);
+  }
+
+  zoomIndicatorTimeoutId = setTimeout(() => {
+    zoomIndicator.classList.remove('visible');
+  }, ZOOM_INDICATOR_TIMEOUT);
 }
 
 // Getters
@@ -109,6 +127,27 @@ function toggleMouseFollow() {
   }
   followMouseControl.classList.toggle('active', autoPan);
 }
+
+// Zoom level observer
+const observeZoomChanges = () => {
+  const observer = new MutationObserver(mutations => {
+    mutations.forEach(mutation => {
+      if (mutation.attributeName === 'style') {
+        const backgroundSize = viewer.style.backgroundSize;
+        if (!backgroundSize) return;
+
+        const zoomLevel = parseInt(backgroundSize);
+        if (!isNaN(zoomLevel) && zoomLevel !== currentZoomLevel) {
+          currentZoomLevel = zoomLevel;
+          updateZoomIndicator(zoomLevel);
+        }
+
+      }
+    });
+  });
+
+  observer.observe(viewer, { attributes: true });
+};
 
 // Main Helpers
 function initializeGallery() {
@@ -168,3 +207,5 @@ document.querySelectorAll('.miv2-image-control').forEach(control => {
 });
 
 initializeGallery();
+observeZoomChanges();
+document.addEventListener('keydown', handleKeyboardShortcuts);

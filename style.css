@@ -322,3 +322,22 @@ body {
   color: var(--color-accent-primary);
   border-color: #FFFFFF;
 }
+
+.miv2-zoom-indicator {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 600;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 10;
+}
+.miv2-zoom-indicator.visible {
+  opacity: 1;
+}
