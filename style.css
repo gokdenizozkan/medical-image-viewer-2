@@ -1,6 +1,5 @@
 :root {
   --color-accent-primary: #0063B3;  
-  
 }
 
 body {
@@ -8,6 +7,7 @@ body {
   padding: 0;
   height: 100vh;
   overflow: hidden;
+  background-color: #F0F2F5;
 }
 
 .miv2-image-viewer {
@@ -101,10 +101,19 @@ body {
 
 .miv2-image-display {
   grid-area: image;
-  border: 1px solid black;
+  display: inline-block;
+  border: 1px solid #CCD2D9;
   width: 100%;
-  height: 480px;
+  height: 100%;
+  border: 1px solid #CCD2D9;
+  border-radius: 4px;
+  background-color: #FFFFFF;
   background-repeat: no-repeat;
+  background-size: contain;
+  background-position: 50% 50%;
+  margin: 16px;
+  position: relative;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
 }
 
 .miv2-image-controls {
