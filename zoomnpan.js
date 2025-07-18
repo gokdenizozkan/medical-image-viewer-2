@@ -5,6 +5,8 @@
  *
  * @see https://github.com/victornpb/ZoomNPan/
  * @example http://jsfiddle.net/Victornpb/1s3nm8h8/
+ *
+ * Modifications: addition of reset function
  */
 function ZoomNPan(elm) {
     var that = this;
@@ -66,7 +68,22 @@ function ZoomNPan(elm) {
         that.invertOnMac && navigator.platform.match(/mac/i) && (sY *= -1, pY *= -1); //invert direction on MacOS
         return pY;
     }
-    
+
+    /**
+     * Reset zoom and pan to default state
+     * @public
+     */
+    this.reset = function() {
+        // Reset internal scale state
+        currentScale = 100;
+
+        // Reset DOM state
+        elm.classList.remove('zoomed-in', 'zoomed-out');
+        elm.style.backgroundSize = '100%';
+        elm.style.backgroundPositionX = '50%';
+        elm.style.backgroundPositionY = '50%';
+    };
+
     /**
      * theardown the events and remove styles, call this when you don't need it anymore.
      * @public
