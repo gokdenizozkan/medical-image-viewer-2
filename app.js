@@ -41,14 +41,14 @@ function displayPreviousImage() { displayByOffset(-1); }
 function displayNextImage() { displayByOffset(1); }
 function zoom(direction) {
   const deltaY = -direction * WHEEL_STEP;
-  const wheelEvent = new WheelEvent('wheel', {deltaY, bubbles: true, canelable: true});
+  const wheelEvent = new WheelEvent('wheel', {deltaY, bubbles: true, cancelable: true});
   viewer.dispatchEvent(wheelEvent);
 }
 function resetView() {
-  viewer.style.backgroundSize = '100%';
-  viewer.style.backgroundPosition = '50% 50%';
-  viewer.classList.remove('zoomed-in', 'zoomed-out');
+  zoomNPan.reset();
+  manualPan = { x: 50, y: 50 };
   currentZoomLevel = 100;
+  dragging = false;
 }
 
 // Getters
@@ -85,7 +85,10 @@ function toggleMouseFollow() {
     manualPan = { x: 50, y: 50 };
     viewer.style.backgroundPosition = '50% 50%';
   }
-  followMouseControl.innerText = autoPan ? "Following" : "Follow Mouse";
+  const textSpan = followMouseControl.querySelector('.miv2-control-text');
+  if (textSpan) {
+    textSpan.textContent = autoPan ? "Following" : "Follow Mouse";
+  }
   followMouseControl.classList.toggle('active', autoPan);
 }
 
