@@ -109,13 +109,47 @@ body {
 
 .miv2-image-controls {
   grid-area: controls;
-  border: 1px solid green;
+  border-top: 1px solid #CCD2D9;
+  background-color: #FFFFFF;
+  padding: 8px 16px;
   display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
 }
-
+.miv2-control-group {
+  display: flex;
+  gap: 8px;
+  border-right: 1px solid #CCD2D9;
+  padding-right: 12px;
+  margin-right: 12px;
+}
+.miv2-control-group:last-of-type {
+  border-right: none;
+  padding-right: 0;
+  margin-right: 0;
+}
+.miv2-image-control {
+  background-color: #FFFFFF;
+  color: #16253B;
+  border: 1px solid #CCD2D9;
+  border-radius: 4px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-weight: 500;
+  display: flex;
+  gap: 4px;
+}
+.miv2-image-control:hover {
+  background-color: #F0F2F5;
+  border-color: #00A3B8;
+}
 .miv2-image-control.active {
   background-color: var(--color-accent-primary);
   border-color: var(--color-accent-primary);
-  color: white;
-  font-weight: 400;
+  color: #FFFFFF;
+  font-weight: 600;
+}
+.miv2-control-icon {
+  font-weight: 600;
 }
