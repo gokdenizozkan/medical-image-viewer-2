@@ -149,11 +149,15 @@ const observeZoomChanges = () => {
   observer.observe(viewer, { attributes: true });
 };
 
-// Main Helpers
-function initializeGallery() {
-  const firstThumbnail = getThumbnails()[0];
-  firstThumbnail.classList.add('selected');
-  setDisplayImageSourceByUrl(firstThumbnail.querySelector('img').src);
+// Theme initialization
+function initializeThemeSystem() {
+  window.miv2Themes.initializeTheme();
+
+  const themeSelector = window.miv2Themes.createThemeSelector();
+  const themeContainer = document.getElementById('themeContainer');
+  if (themeContainer) {
+    themeContainer.appendChild(themeSelector);
+  }
 }
 
 // Keyboard shortcuts handler
@@ -166,7 +170,7 @@ function handleKeyboardShortcuts(e) {
     displayNextImage();
     e.preventDefault();
   }
-  
+
   // Zoom shortcuts
   else if (e.key === '+') {
     zoom(1);
@@ -175,7 +179,7 @@ function handleKeyboardShortcuts(e) {
     zoom(-1);
     e.preventDefault();
   }
-  
+
   // View control shortcuts
   else if (e.key.toLowerCase() === 'f') {
     toggleMouseFollow();
@@ -184,6 +188,13 @@ function handleKeyboardShortcuts(e) {
     resetView();
     e.preventDefault();
   }
+}
+
+// Main Helpers
+function initializeGallery() {
+  const firstThumbnail = getThumbnails()[0];
+  firstThumbnail.classList.add('selected');
+  setDisplayImageSourceByUrl(firstThumbnail.querySelector('img').src);
 }
 
 // Main
@@ -206,6 +217,8 @@ document.querySelectorAll('.miv2-image-control').forEach(control => {
   });
 });
 
+// Initialize application
 initializeGallery();
 observeZoomChanges();
+initializeThemeSystem();
 document.addEventListener('keydown', handleKeyboardShortcuts);

@@ -1,13 +1,22 @@
 :root {
+  /* Theme colors */
   --color-accent-primary: #0063B3;
   --color-accent-secondary: #00A3B8;
   --color-bg-light: #F8FAFC;
   --color-bg-main: #F0F2F5;
+  --color-bg-content: #FFFFFF;
   --color-border: #CCD2D9;
   --color-text-dark: #16253B;
   --color-text-muted: #5A6A7E;
+  --color-text-light: #FFFFFF;
+  --color-error: #D32F2F;
+  --color-header-bg: #E7EBF0;
+  
+  /* Shadows */
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
   --shadow-md: 0 2px 6px rgba(0, 0, 0, 0.12);
+  
+  /* Border radius */
   --radius-sm: 4px;
   --radius-md: 6px;
 }
@@ -40,7 +49,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #E7EBF0;
+  background-color: var(--color-header-bg);
   border-bottom: 1px solid var(--color-border);
   padding: 0 24px;
   height: 80px;
@@ -80,7 +89,7 @@ body {
 .miv2-image-gallery {
   grid-area: gallery;
   border-right: 1px solid var(--color-border);
-  background-color: #FFFFFF;
+  background-color: var(--color-bg-content);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -90,7 +99,7 @@ body {
 
 .miv2-gallery-header {
   padding: 14px 16px;
-  background-color: #FFFFFF;
+  background-color: var(--color-bg-content);
   border-bottom: 1px solid var(--color-border);
   display: flex;
   justify-content: space-between;
@@ -109,6 +118,14 @@ body {
   background-color: var(--color-bg-main);
   padding: 3px 8px;
   border-radius: 12px;
+}
+
+/* High contrast theme specific overrides for gallery count */
+[data-theme="highContrast"] .miv2-gallery-count {
+  background-color: #FFFF00; /* Bright yellow background */
+  color: #000000; /* Black text */
+  font-weight: 600; /* Make text bolder for better readability */
+  border: 1px solid #FFFFFF; /* White border for additional contrast */
 }
 
 .miv2-thumbnail-container {
@@ -148,7 +165,7 @@ body {
   top: 6px;
   left: 6px;
   background-color: var(--color-accent-primary);
-  color: #FFFFFF;
+  color: var(--color-text-light);
   width: 22px;
   height: 22px;
   border-radius: 50%;
@@ -198,6 +215,14 @@ body {
   display: inline-block;
 }
 
+/* High contrast theme specific overrides for thumbnail metadata */
+[data-theme="highContrast"] .miv2-thumbnail-metadata {
+  background-color: #00FFFF;
+  color: #000000;
+  font-weight: 600;
+  border: 1px solid #FFFFFF;
+}
+
 .miv2-image-display {
   grid-area: image;
   display: inline-block;
@@ -205,7 +230,7 @@ body {
   width: calc(100% - 40px);
   height: calc(100% - 40px);
   border-radius: var(--radius-md);
-  background-color: #FFFFFF;
+  background-color: var(--color-bg-content);
   background-repeat: no-repeat;
   background-size: contain;
   background-position: 50% 50%;
@@ -226,7 +251,16 @@ body {
   background-color: rgba(255, 255, 255, 0.8);
   padding: 8px 16px;
   border-radius: var(--radius-sm);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-sm);
+}
+
+/* High contrast theme specific  */
+[data-theme="highContrast"] .miv2-image-display.loading::after {
+  background-color: #FFFF00;
+  color: #000000;
+  border: 2px solid #FFFFFF;
+  font-weight: 600;
+  box-shadow: 0 0 0 2px #000000;
 }
 
 .miv2-image-display.error::after {
@@ -235,19 +269,28 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: #D32F2F;
+  color: var(--color-error);
   font-size: 16px;
   font-weight: 500;
   background-color: rgba(255, 255, 255, 0.9);
   padding: 8px 16px;
   border-radius: var(--radius-sm);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-sm);
+}
+
+/* High contrast theme specific */
+[data-theme="highContrast"] .miv2-image-display.error::after {
+  background-color: #FF0000;
+  color: #FFFFFF;
+  border: 2px solid #FFFFFF;
+  font-weight: 600;
+  box-shadow: 0 0 0 2px #000000;
 }
 
 .miv2-image-controls {
   grid-area: controls;
   border-top: 1px solid var(--color-border);
-  background-color: #FFFFFF;
+  background-color: var(--color-bg-content);
   padding: 8px 16px;
   display: flex;
   align-items: center;
@@ -267,7 +310,7 @@ body {
   margin-right: 0;
 }
 .miv2-image-control {
-  background-color: #FFFFFF;
+  background-color: var(--color-bg-content);
   color: var(--color-text-muted);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
@@ -312,6 +355,15 @@ body {
   box-shadow: var(--shadow-sm);
   line-height: 1;
 }
+
+/* High contrast theme specific */
+[data-theme="highContrast"] .miv2-shortcut-hint {
+  background-color: #FFFF00;
+  color: #000000;
+  border: 1px solid #FFFFFF;
+  font-weight: 700;
+  font-size: 11px;
+}
 .miv2-image-control:hover .miv2-shortcut-hint {
   background-color: var(--color-accent-secondary);
   color: #FFFFFF;
@@ -328,7 +380,7 @@ body {
   bottom: 15px;
   right: 15px;
   background-color: rgba(0, 0, 0, 0.6);
-  color: white;
+  color: var(--color-text-light);
   padding: 6px 10px;
   border-radius: var(--radius-sm);
   font-size: 14px;
@@ -340,4 +392,50 @@ body {
 }
 .miv2-zoom-indicator.visible {
   opacity: 1;
+}
+
+/* Theme Selector */
+.miv2-theme-selector {
+  background-color: var(--color-bg-light);
+  color: var(--color-text-dark);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 6px 10px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  outline: none;
+  margin-left: 12px;
+}
+
+/* High contrast theme specific */
+[data-theme="highContrast"] .miv2-theme-selector {
+  background-color: #00FFFF;
+  color: #000000;
+  border: 2px solid #FFFFFF;
+  font-weight: 600;
+}
+
+.miv2-theme-selector:hover {
+  border-color: var(--color-accent-secondary);
+  box-shadow: var(--shadow-sm);
+}
+
+.miv2-theme-selector:focus {
+  border-color: var(--color-accent-primary);
+  box-shadow: var(--shadow-sm);
+}
+
+.miv2-theme-selector option {
+  background-color: var(--color-bg-content);
+  color: var(--color-text-dark);
+  padding: 8px;
+}
+
+/* High contrast theme specific */
+[data-theme="highContrast"] .miv2-theme-selector option {
+  background-color: #000000;
+  color: #FFFFFF;
+  border-bottom: 1px solid #FFFFFF;
 }
