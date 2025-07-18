@@ -24,7 +24,35 @@ body {
 
 .miv2-viewer-header {
   grid-area: header;
-  border: 1px solid red;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #E7EBF0;
+  border-bottom: 1px solid #CCD2D9;
+  padding: 12px 24px;
+  height: 80px;
+}
+.miv2-header-title {
+  flex: 1;
+}
+.miv2-header-metadata {
+  display: flex;
+  gap: 24px;
+}
+.miv2-header-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.miv2-header-item-label {
+  font-size: 12px;
+  color: #5A6A7E;
+  font-weight: 500;
+}
+.miv2-header-item-value {
+  font-size: 14px;
+  color: #16253B;
+  font-weight: 600;
 }
 
 .miv2-image-gallery {
