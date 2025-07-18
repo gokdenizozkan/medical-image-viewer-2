@@ -276,6 +276,8 @@ body {
   font-weight: 500;
   display: flex;
   gap: 4px;
+  position: relative;
+  overflow: visible;
 }
 .miv2-image-control:hover {
   background-color: var(--color-bg-main);
@@ -295,4 +297,28 @@ body {
   min-width: 16px;
   min-height: 16px;
   font-size: 14px;
+}
+.miv2-shortcut-hint {
+  position: absolute;
+  top: -8px;
+  right: -4px;
+  background-color: var(--color-bg-light);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 2px 5px;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  box-shadow: var(--shadow-sm);
+  line-height: 1;
+}
+.miv2-image-control:hover .miv2-shortcut-hint {
+  background-color: var(--color-accent-secondary);
+  color: #FFFFFF;
+  border-color: var(--color-accent-secondary);
+}
+.miv2-image-control.active .miv2-shortcut-hint {
+  background-color: #FFFFFF;
+  color: var(--color-accent-primary);
+  border-color: #FFFFFF;
 }

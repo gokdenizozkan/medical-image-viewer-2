@@ -117,6 +117,36 @@ function initializeGallery() {
   setDisplayImageSourceByUrl(firstThumbnail.querySelector('img').src);
 }
 
+// Keyboard shortcuts handler
+function handleKeyboardShortcuts(e) {
+  // Navigation shortcuts
+  if (e.key === 'ArrowLeft') {
+    displayPreviousImage();
+    e.preventDefault();
+  } else if (e.key === 'ArrowRight') {
+    displayNextImage();
+    e.preventDefault();
+  }
+  
+  // Zoom shortcuts
+  else if (e.key === '+') {
+    zoom(1);
+    e.preventDefault();
+  } else if (e.key === '-') {
+    zoom(-1);
+    e.preventDefault();
+  }
+  
+  // View control shortcuts
+  else if (e.key.toLowerCase() === 'f') {
+    toggleMouseFollow();
+    e.preventDefault();
+  } else if (e.key.toLowerCase() === 'r') {
+    resetView();
+    e.preventDefault();
+  }
+}
+
 // Main
 gallery.addEventListener('click', e => {
   const thumbnail = e.target.closest('.miv2-thumbnail');
